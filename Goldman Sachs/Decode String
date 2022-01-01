@@ -1,0 +1,51 @@
+class Solution{
+public:
+    string decodedString(string s){
+        
+        int n = s.length();
+        
+        string temp ="";
+        int number = 0;
+        
+        stack<string> word;
+        stack<int> wordCount;
+        
+        for(int i = 0;i<n;i++)
+        {
+            char c= s[i];
+            
+            if(isalpha(c))
+            {
+                temp += c;
+            }
+            else if(isdigit(c))
+            {
+                number = number *10 + (c -'0');
+            }
+            else if( c == '[')
+            {
+                word.push(temp);
+                wordCount.push(number);
+                
+                number =0;
+                temp = "";
+            }
+            else
+            {
+                int count = wordCount.top();
+                wordCount.pop();
+                
+                string str = word.top();
+                word.pop();
+                
+                for(int i =1;i<=count;i++)
+                {
+                    str += temp;
+                }
+                temp = str;
+            }
+        }
+        
+        return temp;
+    }
+};
