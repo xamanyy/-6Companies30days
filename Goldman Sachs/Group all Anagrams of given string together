@@ -1,0 +1,47 @@
+ public:
+    vector<vector<string> > Anagrams(vector<string>& string_list) {
+       
+       map<map<char,int>,vector<string>>  mainMap;
+       
+       //now we have to make key first.
+       
+       for(auto x: string_list)
+       {
+           map<char,int> temp;
+           vector<string> demo;
+           for(int i = 0;i<x.length();i++)
+           {
+               char c = x[i];
+               temp[c]++;
+           }
+           
+           //now we have to put values in front of keys.
+           auto it = mainMap.find(temp);
+           
+           if(it != mainMap.end())
+           {
+               it->second.push_back(x);
+           }
+           else
+           {
+               demo.push_back(x);
+               mainMap.insert({temp,demo});
+           }
+       }
+       
+       //make answer.
+       
+       vector<vector<string>> ans;
+       
+       for(auto it : mainMap)
+       {
+           vector<string> help;
+           for(auto y : it.second)
+           {
+               help.push_back(y);
+           }
+           ans.push_back(help);
+       }
+       
+           return ans;
+    }
